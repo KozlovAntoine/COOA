@@ -7,16 +7,19 @@ public class Sort {
 	private static boolean counter = false;
 
 	public static void main(String[] args) {
+		long now = System.currentTimeMillis();
 		Counter.reset();
-		int size = 1000;
+		int size = 1000000;
 		int[] tab = generateRdmIntArray(size, 0, 10000);
-		printArray(tab);
+		//printArray(tab);
 		quickSort(tab, 0 , size-1);
-		printArray(tab);
+		//printArray(tab);
 		Counter.affichage();
 
 		int a = (int) (size * Math.log(size));
-		System.out.println(a);
+		//System.out.println(a);
+
+		System.out.println("Time execution:" + (System.currentTimeMillis() - now) + "ms");
 		/*System.out.println("Bubble sort : ");
 		tab = generateRdmIntArray(100, 0, 100);
 		bubbleSort(tab, true);
