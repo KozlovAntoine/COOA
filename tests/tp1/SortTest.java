@@ -42,20 +42,20 @@ public class SortTest {
 
 	@Test
 	public void testBubbleSort() {
-		Sort.bubbleSort(unSorted, false);
+		Sort.bubbleSort(unSorted);
 		assertArrayEquals(unSorted, SORTED);
 	}
 
 
 	@Test
 	public void testInsertSort() {
-		Sort.insertSort(unSorted, false);
+		Sort.insertSort(unSorted);
 		assertArrayEquals(unSorted, SORTED);
 	}
 
 	@Test
 	public void testSelectSort() {
-		Sort.selectSort(unSorted, false);
+		Sort.selectSort(unSorted);
 		assertArrayEquals(unSorted, SORTED);
 	}
 

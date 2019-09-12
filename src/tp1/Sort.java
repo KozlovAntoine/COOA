@@ -4,11 +4,18 @@ import java.util.Arrays;
 
 public class Sort {
 
+	private static boolean counter = false;
+
 	public static void main(String[] args) {
-		int[] tab = generateRdmIntArray(1000, 0, 2000);
+		Counter.reset();
+		int size = 1000;
+		int[] tab = generateRdmIntArray(size, 0, 10000);
 		printArray(tab);
-		partition(tab, 0, 20, 1);
-		int a = (int) (tab.length * Math.log(tab.length));
+		quickSort(tab, 0 , size-1);
+		printArray(tab);
+		Counter.affichage();
+
+		int a = (int) (size * Math.log(size));
 		System.out.println(a);
 		/*System.out.println("Bubble sort : ");
 		tab = generateRdmIntArray(100, 0, 100);
@@ -36,7 +43,7 @@ public class Sort {
 		return tab;
 	}
 
-	public static void insertSort(int[] tab, boolean counter) {
+	public static void insertSort(int[] tab) {
 		Counter.reset();
 		int n = tab.length;
 		for (int i = 1; i < n; ++i) {
@@ -53,7 +60,7 @@ public class Sort {
 		if(counter) Counter.affichage();
 	}
 
-	public static void selectSort(int[] tab, boolean counter) {
+	public static void selectSort(int[] tab) {
 		Counter.reset();
 		for (int i = 0; i < tab.length; i++) {
 			int min = tab[i], idx = i;
@@ -84,7 +91,7 @@ public class Sort {
 		Counter.incPerm();
 	}
 
-	public static void bubbleSort(int[] tab, boolean counter) {
+	public static void bubbleSort(int[] tab) {
 		Counter.reset();
 		for (int i = 0; i < tab.length - 1; i++){
 			for (int j = 0; j < tab.length-i-1; j++) {
@@ -97,29 +104,49 @@ public class Sort {
 		if(counter) Counter.affichage();
 	}
 
-	public static int partition(int[] tab, int d, int f, int idxP){
+	/*public static int partition(int[] tab, int d, int f, int idxP){
 		if(d < f){
-			Counter.reset();
 			int pivot = tab[idxP];
-			System.out.println("Pivot:"+pivot);
-			int idx = tab.length-2;
-			int i = 0;
-			swap(tab, idxP, tab.length-1);
-			Counter.incPerm();
+			int idx = f - 1;
+			int i = d;
+			swap(tab, idxP, f);
 			while(idx > i){
 				Counter.incComp();
 				if(tab[i] > pivot){
 					swap(tab, i, idx);
-					Counter.incPerm();
 					idx--;
 				} else i++;
 				//printArray(tab);
 			}
-			swap(tab, tab.length-1, idx);
-			Counter.incPerm();
-			printArray(tab);
-			Counter.affichage();
+			swap(tab, f, idx);
+			//printArray(tab);
+			if(counter) Counter.affichage();
+			//System.out.println("return:" + idx);
+			return idx;
 		}
-		return 0;
+		return -1;
+	}*/
+
+	public static void quickSort(int[] tab, int debut, int fin){
+		if(debut < fin){
+			int pivot = partition(tab, debut, fin, (int) (Math.random() * ((fin - debut) + 1)) + debut);
+			//System.out.println("Pivot = " + pivot);
+			quickSort(tab, debut, pivot - 1);
+			quickSort(tab, pivot + 1, fin);
+		}
+	}
+
+	public static int partition(int[] tab, int d, int f, int idxP){
+		swap(tab, idxP, f);
+		int j = d;
+		for(int i = d ; i < f ; i++){
+			Counter.incComp();
+			if(tab[i] <= tab[f]){
+				swap(tab, i, j);
+				j++;
+			}
+		}
+		swap(tab, f, j);
+		return j;
 	}
 }
